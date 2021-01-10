@@ -89,18 +89,15 @@ El servicio topsecret tiene las siguientes operaciones disponibles:
   
   En caso de que no se pueda ubicar la nave carguera o el mensaje no pueda ser completado, el resultado será un código de respuesta 404
   
-  ## Ejecución de aplicación desde IDE Intellij IDEA
-  Como primer paso se deberá clonar el repositorio remoto a uno local.
+  ## Ejecución de aplicación 
+  La api fue desplegada en heroku. 
   
-  Abrimos el IDE intellij IDEA, luego nos dirigimos hacia File - Open
+  Las url de los endpoints son:
   
-  Vamos haciae la carpeta del proyecto clonada en nuestra pc abrimos el archivo build.gradle con el examinador de archivos.
-  Nos preguntará como queremos abrirlo y haremos clic en "As project" o "Como proyecto" y luego si en esta misma ventana o en una nueva.
+  -  https://quasar-application.herokuapp.com/api/v1/topsecret_split/{satelliteId} (POST)
+  -  https://quasar-application.herokuapp.com/api/v1/topsecret_split (GET)
+  -  https://quasar-application.herokuapp.com/api/v1/top_secret (POST)
   
-  Una vez cargado el proyecto en el IDEA, desplegamos el arbol del proyecto (generalmente ubicado a la izquierda) y nos dirigimos a la siguiente ruta abriendo las carpetas del arbol src/main/java/ar.com.quasar/QuasarApplication, daremos click derecho sobre la clase "QuasarApplication", se desplegará un menú de opciones y luego  hacemos clic en "Run 'QuasarApplicat...main()'. 
 
-  Por consola podemos verificar que la aplicación inició.
-  
-  Podemos mediante por ejemplo Postman, realizar las pruebas a los endpoints indicados.
   
   
