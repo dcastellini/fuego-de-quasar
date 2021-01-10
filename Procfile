@@ -1,0 +1,1 @@
+web: java -jar build/libs/quasar-1.0.jar
