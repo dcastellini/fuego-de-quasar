@@ -6,6 +6,10 @@ import ar.com.quasar.models.Position;
 import ar.com.quasar.models.Satellite;
 import ar.com.quasar.models.SatelliteOnService;
 import ar.com.quasar.services.UtilServiceImpl;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1")
+//@RequestMapping("api/v1")
 public class ApiController {
 
     @Autowired
@@ -45,25 +49,36 @@ public class ApiController {
 
 
     @PostMapping(path = TOP_SECRET , consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ApiOperation("Obtains a location and message from unknown ship")
+    @ApiResponse(code = 200, message = "Ok")
     public ResponseEntity topSecret(RequestEntity<SatelliteOnService> requestEntity) throws MessageException {
         try {
             SatelliteOnService satelliteOnService = (SatelliteOnService) requestEntity.getBody();
             return ResponseEntity.status(HttpStatus.OK).body(utilServiceImpl.getUnknownShipInformation(satelliteOnService));
         } catch(MessageException e) {
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
-        }
-    }
-
-    @PostMapping(path = TOP_SECRET_SPLIT_WITH_NAME , consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity topSecretSplitWithSatelliteName(@PathVariable("satelliteName") String satelliteName,@RequestBody Satellite satellite) {
-        try {
-                satellites = utilServiceImpl.saveMessage(satelliteName, satellite, satellites);
-                return new ResponseEntity(HttpStatus.OK);
-        }catch(MessageException | NotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
         }
     }
 
+    @PostMapping(path = TOP_SECRET_SPLIT_WITH_NAME , consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @ApiOperation("Upload new information from satellite")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Error")
+    })
+    public ResponseEntity topSecretSplitWithSatelliteName(@PathVariable("satelliteName") String satelliteName, @RequestBody Satellite satellite) {
+        try {
+                satellites = utilServiceImpl.saveMessage(satelliteName, satellite, satellites);
+                return ResponseEntity.status(HttpStatus.OK).body("Satellite has been correctly uploaded");
+        }catch(MessageException | NotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
+    }
+    @ApiOperation("Get a unknow ship from upload information")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Ok"),
+            @ApiResponse(code = 404, message = "Error")
+    })
     @GetMapping(path = TOP_SECRET_SPLIT , produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity topSecretSplitResponse(){
         try {

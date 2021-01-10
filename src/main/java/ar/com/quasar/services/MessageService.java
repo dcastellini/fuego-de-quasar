@@ -12,8 +12,6 @@ public class MessageService {
 
         String[] mensajeOriginal = new String[listaDeMensajes.get(0).size()];
 
-
-
         for(int i = 0; i < listaDeMensajes.size(); i++ ) {
             for(int j = 0; j < listaDeMensajes.get(i).size(); j ++) {
                 if(!listaDeMensajes.get(i).get(j).equals("")){
