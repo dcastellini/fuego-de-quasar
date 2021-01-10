@@ -69,12 +69,12 @@ public class ApiController {
     public ResponseEntity topSecretSplitWithSatelliteName(@PathVariable("satelliteName") String satelliteName, @RequestBody Satellite satellite) {
         try {
                 satellites = utilServiceImpl.saveMessage(satelliteName, satellite, satellites);
-                return ResponseEntity.status(HttpStatus.OK).body("Satellite has been correctly uploaded");
+                return ResponseEntity.status(HttpStatus.OK).body("El satelite fue cargado correctamente");
         }catch(MessageException | NotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
         }
     }
-    @ApiOperation("Get a unknow ship from upload information")
+    @ApiOperation("Get a unknown ship from upload information")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Ok"),
             @ApiResponse(code = 404, message = "Error")
